@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace TagsCloudVisualization;
 
-public class CircularCloudLayouter
+public class CircularCloudLayouter : ICloudLayouter
 {
     private readonly IPointDistributor distributor;
     private readonly List<RectangleF> rectangles = [];
@@ -21,7 +21,6 @@ public class CircularCloudLayouter
         } while (rectangles.Any(r => r.IntersectsWith(rect)));
 
         rectangles.Add(rect);
-        Console.WriteLine(rect);
         return rect;
     }
 }
