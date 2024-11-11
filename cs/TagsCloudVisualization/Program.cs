@@ -15,4 +15,4 @@ class Program
         var visualizer = new Visualizer(rectangles);
         visualizer.SaveVisualizationAsPng("result1.png");
     }
-} 
+}

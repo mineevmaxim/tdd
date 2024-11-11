@@ -18,7 +18,7 @@ public class RectangleFExtensionsTests
             rectSize.Height);
         rect.GetCenter().Should().Be(new PointF(expectedX, expectedY));
     }
-    
+
     [TestCase(0, 0)]
     [TestCase(-5, 5)]
     [TestCase(41, -123)]

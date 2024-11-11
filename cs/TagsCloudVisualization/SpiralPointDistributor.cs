@@ -16,12 +16,12 @@ public class SpiralPointDistributor : IPointDistributor
         this.angleStep = angleStep;
         this.radiusStep = radiusStep;
     }
-    
+
     public PointF GetNextPoint()
     {
         var x = center.X + radius * MathF.Cos(angle);
         var y = center.Y + radius * MathF.Sin(angle);
-        
+
         angle += angleStep;
         if (angle >= MathF.PI * 2 || radius == 0)
         {

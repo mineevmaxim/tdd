@@ -26,6 +26,5 @@ public class Visualizer
                 ctx.Draw(Color.DarkRed, 1.5f, rectangle);
         });
         image.SaveAsPng(fileName);
-        Console.WriteLine($"Tag cloud visualization saved to file {fileName}");
     }
 }
