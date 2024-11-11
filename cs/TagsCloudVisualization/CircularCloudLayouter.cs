@@ -7,7 +7,7 @@ public class CircularCloudLayouter
     private readonly IPointDistributor distributor;
     private readonly List<RectangleF> rectangles = [];
 
-    public CircularCloudLayouter(PointF center, IPointDistributor distributor)
+    public CircularCloudLayouter(IPointDistributor distributor)
         => this.distributor = distributor;
 
     public RectangleF PutNextRectangle(SizeF rectangleSize)

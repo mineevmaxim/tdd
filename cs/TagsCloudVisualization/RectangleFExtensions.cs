@@ -9,4 +9,14 @@ public static class RectangleFExtensions
     
     public static PointF GetCenter(this RectangleF rectangle)
         => new(rectangle.X + rectangle.Width / 2, rectangle.Y - rectangle.Height / 2);
+
+    public static float DistanceTo(this RectangleF rectangle, RectangleF other)
+    {
+        var rectCenter = GetCenter(rectangle);
+        var otherCenter = GetCenter(rectangle);
+        var deltaX = rectCenter.X - otherCenter.X;
+        var deltaY = rectCenter.Y - otherCenter.Y;
+        
+        return MathF.Sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
 }
