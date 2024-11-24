@@ -7,6 +7,14 @@ namespace TagsCloudTests;
 
 public class SpiralPointDistributorTests
 {
+    [TestCase(0, 1)]
+    [TestCase(1, 0)]
+    public void SpiralPointDistributor_Throws_WithInvalidParameters(float angleStep, float radiusStep)
+    {
+        var action = () => new SpiralPointDistributor(new PointF(0, 0), angleStep, radiusStep);
+        action.Should().Throw<ArgumentException>();
+    }
+    
     [Test]
     public void GetNextPoint_Returns_DifferentPoints()
     {

@@ -17,7 +17,8 @@ public class Visualizer
 
     public void SaveVisualizationAsPng(string fileName)
     {
-        using var image = new Image<Rgba32>(1000, 1000);
+        var size = GetImageSize();
+        using var image = new Image<Rgba32>(size.Width, size.Height);
         image.Mutate(ctx =>
         {
             ctx.Clear(Color.Azure);
@@ -26,5 +27,19 @@ public class Visualizer
                 ctx.Draw(Color.DarkRed, 1.5f, rectangle);
         });
         image.SaveAsPng(fileName);
+    }
+
+    private Size GetImageSize()
+    {
+        if (!rectangles.Any())
+            return new Size(100, 100);
+        var imageWidth = rectangles
+            .Select(rect => Math.Max(Math.Abs(rect.Right), Math.Abs(rect.Left)))
+            .Max();
+        var imageHeight = rectangles
+            .Select(rect => Math.Max(Math.Abs(rect.Top), Math.Abs(rect.Bottom)))
+            .Max();
+
+        return new Size((int)imageWidth * 2, (int)imageHeight * 2);
     }
 }

@@ -11,15 +11,8 @@ public class CircularCloudLayouterTests
 {
     private List<RectangleF> rectangles = [];
 
-    [TearDown]
-    public void VisualizeWhenTestIsDown()
-    {
-        if (TestContext.CurrentContext.Result.Outcome.Status != TestStatus.Failed) return;
-        var testName = TestContext.CurrentContext.Test.Name + ".png";
-        var visualizer = new Visualizer(rectangles);
-        visualizer.SaveVisualizationAsPng(testName);
-        TestContext.WriteLine($"Tag cloud visualization saved to file {testName}");
-    }
+    [SetUp]
+    public void Setup() => rectangles = [];
 
     [Test]
     [Description("Центр первого прямоугольника равен параметру center")]
@@ -39,7 +32,6 @@ public class CircularCloudLayouterTests
         var center = new PointF(0, 0);
         var rnd = new Random();
         var layouter = new CircularCloudLayouter(new SpiralPointDistributor(center));
-        rectangles = [];
         for (var i = 0; i < 10; i++)
         {
             var rect = layouter.PutNextRectangle(new SizeF(rnd.Next(1, 20), rnd.Next(1, 20)));
@@ -57,7 +49,6 @@ public class CircularCloudLayouterTests
     public void PutNextRectangle_Rectangles_ShouldPlaceRectanglesCloseToEachOther()
     {
         var rnd = new Random();
-        rectangles = [];
         var layouter = new CircularCloudLayouter(new SpiralPointDistributor(new PointF(10, 11)));
         for (var i = 0; i < 50; i++)
             rectangles.Add(layouter.PutNextRectangle(new SizeF(rnd.Next(10, 20), rnd.Next(10, 20))));
@@ -67,5 +58,15 @@ public class CircularCloudLayouterTests
             .Select(rectangle => rectangles.Where(rect => rect != rectangle).Min(rect => rect.DistanceTo(rectangle)));
         foreach (var distance in distances)
             distance.Should().BeLessThanOrEqualTo(expected);
+    }
+    
+    [TearDown]
+    public void VisualizeWhenTestIsDown()
+    {
+        if (TestContext.CurrentContext.Result.Outcome.Status != TestStatus.Failed) return;
+        var testName = TestContext.CurrentContext.Test.Name + ".png";
+        var visualizer = new Visualizer(rectangles);
+        visualizer.SaveVisualizationAsPng(testName);
+        TestContext.WriteLine($"Tag cloud visualization saved to file {testName}");
     }
 }

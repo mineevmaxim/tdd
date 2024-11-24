@@ -13,6 +13,8 @@ public class SpiralPointDistributor : IPointDistributor
     public SpiralPointDistributor(PointF center, float angleStep = MathF.PI / 180, float radiusStep = 1f)
     {
         this.center = center;
+        if (angleStep == 0) throw new ArgumentException("Angle step must be not equals zero.");
+        if (radiusStep == 0) throw new ArgumentException("Radius step must be not equals zero.");
         this.angleStep = angleStep;
         this.radiusStep = radiusStep;
     }
